@@ -19,8 +19,8 @@ int main()
     for_each(v.begin(), v.end(), [&multiplier](double& i) {i *= multiplier; });
 
     // Part B) Print values using auto to initialize the iterator variable
-    for (auto i : v) {
-        cout << i << endl;
+    for (auto it = v.begin(); it < v.end(); it++) {
+        cout << *it << endl;
     }
 
     // Part C) Write a lambda function that compute the minimum and maximum and return pair/tuple
@@ -44,7 +44,5 @@ int main()
     cout << "max_element: " << *result.second << endl;
 
     // We get the same output. The minmax_element method is quite easy to understand and reuse
-
-    return 0;
 }
 
