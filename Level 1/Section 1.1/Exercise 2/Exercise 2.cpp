@@ -23,7 +23,7 @@ int main() {
 	std::vector<int> vec{ 1,2,3,4,5 };
 	int initVal = 1;
 
-	// Part A) Implement and test algorithm using generic lambda
+	/// Part A) Implement and test algorithm using generic lambda
 	// stl accumulate
 	int acc2 = std::accumulate(vec.begin(), vec.end(), initVal, std::multiplies<int>());
 	// function object
@@ -50,7 +50,7 @@ int main() {
 	std::cout << "Sum 6, complex numbers: " << acc6C_template << std::endl;
 	// Yes, the algorithm can be used with complex numbers. We can use function objects, lambda function, or template function. 
 
-	// Part B) Implement the accumulation algorithm using embedded lambda function
+	/// Part B) Implement the accumulation algorithm using embedded lambda function
 	std::for_each(vec.begin(), vec.end(), [&initVal](int& i) {initVal = MyMultiply(initVal, i); });
 	std::for_each(complexArray.begin(), complexArray.end(), [&initCVal](Complex& i) {initCVal = MyMultiply(initCVal, i); });
 
@@ -58,7 +58,7 @@ int main() {
 	std::cout << initCVal << std::endl;
 	// The results are the same as question (A).
 
-	// Part C) Example of a stored lambda function that may be called from an STL algorithm
+	/// Part C) Example of a stored lambda function that may be called from an STL algorithm
 	// We use `transform` as the stl algorithm, `back_inserter` to iteratively insert elements at the end of a container
 	std::vector<int> input{ 1,2,3,4,5 };
 	auto square = [](int x) {return x * x; };
