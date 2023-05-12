@@ -37,7 +37,7 @@ int main()
     // • Modify void rotate(double d) in the base class so that it calls f.
     // • The derived classes may override void rotate(double d).
     // • Create a test program with various examples of f.
-    
+
     // Test function
     VoidFunctionType func1 = [](const double& d) {std::cout << d * d << std::endl; };
     double param = 4;
