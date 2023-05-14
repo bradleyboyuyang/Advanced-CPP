@@ -4,6 +4,8 @@
 #include <functional>
 #include <tuple>
 #include <span>
+#include <array>
+#include <iomanip>
 
 #include <boost/date_time.hpp>
 #include <boost/asio.hpp>
@@ -43,6 +45,48 @@ template<int index> struct TupleLess {
     }
 };
 
+// range based loop
+void printSpanRange(const std::span<int>& span) {
+    for (auto& element : span) {
+        std::cout << element << " ";
+    }
+    std::cout << std::endl;
+}
+
+// iteration based loop
+void printSpanIter(const std::span<int>& span) {
+    for (auto it = span.begin(); it != span.end(); ++it)
+    {
+        std::cout << *it << " ";
+
+    }
+    std::cout << std::endl;
+}
+
+// index based loop
+void printSpanIndex(const std::span<int>& span) {
+    for (std::size_t i = 0; i < span.size(); ++i) {
+        std::cout << span[i] << " ";
+    }
+    std::cout << std::endl;
+}
+
+// return first n elements of a span
+std::span<int> firstNSpan (const std::span<int>& span, const int N) {
+    return span.first(N);
+}
+
+// return last n elements of a span
+std::span<int> lastNSpan (const std::span<int>& span, const int N) {
+    return span.last(N);
+}
+
+// function that tests the std::subspan
+void testSubSpan(const std::span<int>& span, const int start, const int end) {
+    std::span<int> subSpan = span.subspan(start, end);
+    printSpanRange(subSpan);
+}
+
 
 int main()
 {
@@ -57,6 +101,8 @@ int main()
     std::get<2>(p3) = boost::gregorian::date( 2001, 3, 25 );
 
     /// Part (B) Create a function to print the elements of Person
+    std::cout << "Print elements of Person: " << std::endl;
+
     const int N = std::tuple_size<decltype(p1)>::value;
     TuplePrinter<Person, N>::print(p1);
     printTuple<0>(p2);
@@ -82,37 +128,66 @@ int main()
     }
 
     /// Part (E) Create fixed-sized and variable-sized arrays and create span views of them 
-    
+    std::array<int, 5> fixedArr = { 1, 2, 3, 4, 5 };
+    std::span<int> fixedSpan(fixedArr); // create a span view of the fixed-sized array
 
+    std::array<int, 5> dynamicArr = { 5, 4, 3, 2, 1 };
+    std::span<int> dynamicSpan(dynamicArr); // create a span view of the variable-sized array
     
-    
-    /// Are these views readonly? Prove or disprove this question
-     
+    /// Are these views read only? Prove or disprove this question
+    // std::span does not enforce read-only access to the underlying data. It allows both read and write operations. 
+    // But we can restrict to read-only using const keyword
 
-    
+
     /// Part (F) Create 3 print functions for spans using a) range-based for loops, b) iterators and c) indexing operator []
-
-
+    std::cout << "Print span of fixed array and dynamic array: " << std::endl;
+    // Range based loops
+    printSpanRange(fixedSpan);
+    printSpanRange(dynamicSpan);
+    // Iterator based loops
+    printSpanIter(fixedSpan);
+    printSpanIter(dynamicSpan);
+    // Index based loops
+    printSpanIndex(fixedSpan);
+    printSpanIndex(dynamicSpan);
 
     /// Part (G) Write functions to return the first and last N elements of a span
-    
-    /// Part (H) Write a function to test std::subspan
-    
+    std::cout << "Print first/last n elements of a span: " << std::endl;
+    printSpanRange(firstNSpan(fixedSpan, 3));
+    printSpanRange(lastNSpan(dynamicSpan, 3));
 
-    /// Part (I) Investigate and extend the following code to create “byte views of spans”
-    // Bytes stuff
-    //float data[1]{ 3.141592f };
-    //auto const const_bytes = std::as_bytes(std::span{ data });
-    //for (auto const b : const_bytes)
-    //{
-    //    std::cout << std::setw(2)
-    //        << std::hex
-    //        << std::uppercase
-    //        << std::setfill('0')
-    //        << std::to_integer<int>(b) << ' ';
-    //}
-    // Exx. test 
-    //std::as_writable_bytes
+
+    /// Part (H) Write a function to test std::subspan
+    std::cout << "Test functionalities of STL subspan: " << std::endl;
+    testSubSpan(fixedSpan, 1, 3);
+    testSubSpan(dynamicSpan, 1, 4);
+
+    /// Part (I) Investigate and extend the following code to create "byte views of spans"
+    std::cout << "Create byte views of spans: " << std::endl;
+
+    // See the byte-level view of `data` array using std::as_bytes and std::span
+    float data[1]{ 3.141592f }; // `data` is a float array
+    // const_bytes is indeed a "byte view of span": std::span<const std::byte>, rather than the original float
+    auto const const_bytes = std::as_bytes(std::span{ data }); // use a series of bytes to represent `data`
+    // print as hexadecimal format
+    for (auto const b : const_bytes)
+    {
+        std::cout << std::setw(2)
+            << std::hex
+            << std::uppercase
+            << std::setfill('0')
+            << std::to_integer<int>(b) << ' ';
+    }
+    //Another way (std::as_writable_bytes) is a C++ 20 way of "std::as_bytes"
+    auto writable_bytes = std::as_writable_bytes(std::span{ data });
+    for (auto& b : writable_bytes) {
+        std::cout << std::setw(2)
+            << std::hex
+            << std::uppercase
+            << std::setfill('0')
+            << std::to_integer<int>(b) << ' ';
+    }
+
 
 
 

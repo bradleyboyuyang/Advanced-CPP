@@ -1,20 +1,63 @@
-﻿// Exercise 2.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
-//
+﻿#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <functional>
+#include <tuple>
+#include <complex>
 
-#include <iostream>
+// Recursive case 
+template <typename T, typename Tuple, std::size_t N>
+struct Calculator
+{
+    static T calcMax(const Tuple& tup) {
+        return std::max(std::get<N - 1>(tup), Calculator<T, Tuple, N-1>::calcMax(tup));
+   }
+
+    static T calcSum(const Tuple& tup) {
+        return std::get<N - 1>(tup) + Calculator<T, Tuple, N - 1>::calcSum(tup);
+    }
+
+    static T calcAvg(const Tuple& tup) {
+        return calcSum(tup) / static_cast<T>(N);
+    }
+
+};
+
+// ending/base case for recursion (only for max and sum, no need for avg)
+template <typename T, typename Tuple>
+struct Calculator<T, Tuple, 1>
+{
+    static T calcMax(const Tuple& tup) {
+        return std::get<0>(tup);
+    }
+
+    static T calcSum(const Tuple& tup) {
+        return std::get<0>(tup);
+    }
+
+};
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    /// Part (A) Create a template class with static member functions to compute the maximum
+    /// sum and average of the elements in the tuple
+    // Actually two ways to do this: std::apply or normal recursion way, we implement using the recursive way
+
+
+    /// Part (B) Test the code on tuples with two and three elements whose underlying type is double
+    using Tuple = std::tuple<double, double, double>;
+    Tuple tup = std::make_tuple(3.14, 4.31, 1.23);
+    const int size = std::tuple_size<decltype(tup)>::value;
+    std::cout << "Max: " << Calculator<double, Tuple, size>::calcMax(tup) << std::endl;
+    std::cout << "Sum: " << Calculator<double, Tuple, size>::calcSum(tup) << std::endl;
+    std::cout << "Avg: " << Calculator<double, Tuple, size>::calcAvg(tup) << std::endl;
+
+
+    /// Part (C) Compute the sum and average of a tuple whose element type is std::complex<int>
+    using Complex = std::complex<int>;
+    using ComplexTuple = std::tuple<Complex, Complex, Complex>;
+    ComplexTuple tup_com = std::make_tuple(Complex(1, 2), Complex(3, 4), Complex(5, 6));
+    const int size_com = std::tuple_size<decltype(tup_com)>::value;
+    std::cout << "Sum: " << Calculator<Complex, ComplexTuple, size_com>::calcSum(tup_com) << std::endl;
+    std::cout << "Avg: " << Calculator<Complex, ComplexTuple, size_com>::calcAvg(tup_com) << std::endl;
 }
-
-// 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
-// 调试程序: F5 或调试 >“开始调试”菜单
-
-// 入门使用技巧: 
-//   1. 使用解决方案资源管理器窗口添加/管理文件
-//   2. 使用团队资源管理器窗口连接到源代码管理
-//   3. 使用输出窗口查看生成输出和其他消息
-//   4. 使用错误列表窗口查看错误
-//   5. 转到“项目”>“添加新项”以创建新的代码文件，或转到“项目”>“添加现有项”以将现有代码文件添加到项目
-//   6. 将来，若要再次打开此项目，请转到“文件”>“打开”>“项目”并选择 .sln 文件
