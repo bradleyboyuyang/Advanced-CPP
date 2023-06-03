@@ -34,9 +34,9 @@ public:
     virtual void draw() override {}
 };
 
+/// Part (A) Check type properties
 template <typename T>
 void checkTypeProperty(const T& t){ 
-    // Type properties
     // A class with no data and no virtual functions
     std::cout << "** Check type properties **\n";
     std::cout << "Is class empty? " << std::boolalpha << std::is_empty<T>::value << std::endl;
@@ -45,9 +45,10 @@ void checkTypeProperty(const T& t){
     std::cout << "End *********************\n";
 }
 
+/// Part (B), (C), (D)
+// Check type relations
 template <typename T1, typename T2>
 void checkTypeRelations(const T1& t1, const T2& t2){
-    // Type relations
     std::cout << "** Check type relations **\n";
     std::cout << "Is same type? " << std::boolalpha << std::is_same<T1, T2>::value << std::endl;
     std::cout << "Is base of? " << std::boolalpha << std::is_base_of<T1, T2>::value << std::endl;
@@ -58,7 +59,7 @@ void checkTypeRelations(const T1& t1, const T2& t2){
 int main()
 {
     /// Part (A) Which classes / types are empty, polymorphic or abstract ?
-    // Check Type properties
+    // Check Type properties. We answer question (A) using ``checkTypeProperty" function
     Shape* sh = nullptr;
     checkTypeProperty(*sh); // Test empty class
 
@@ -75,7 +76,7 @@ int main()
     /// Part (B) Which classes are the same ?
     /// Part (C) Which classes have a gen / spec(base / derived) relationship ?
     /// Part (D) Which types can be converted to each other ?
-    // check type relations
+    // Check type relations. We answer question (B), (C), (D) using ``checkTypeProperty" function
     checkTypeRelations(*shape, *shape); // same classes, is base of, not convertible
     checkTypeRelations(b, b); // same classes, is base of, convertible
     checkTypeRelations(*shape, b); // not same classes, not base of, not convertible
