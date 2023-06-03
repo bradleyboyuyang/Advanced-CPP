@@ -19,79 +19,40 @@
 #include <memory>
 #include<type_traits>
 
-/// Part (A)
+
+// We take the method introduced in the class: create two separate functions for the pointer and non-pointer case
 template <typename T>
-void printTypeTrait(const T& t) {
-    if (std::is_null_pointer<T>::value)
-        std::cout << "This is a null pointer" << std::endl;
-    else if (std::is_pointer<T>::value)
-        std::cout << "This is a pointer" << std::endl;
-    else if (std::is_lvalue_reference<T>::value)
-        std::cout << "This is an lvalue reference" << std::endl;
-    else if (std::is_rvalue_reference<T>::value)
-        std::cout << "This is an rvalue reference" << std::endl;
-    else
-        std::cout << "This is not a pointer, null pointer, lvalue reference or an rvalue reference" << std::endl;
+void isPointer(const T& t, std::true_type) {
+    // this function is called for a pointer (switch)
+    std::cout << "This is a pointer. The value it points to is: " << *t << std::endl;
 }
 
-
-/// Part (B)
 template <typename T>
-void checkMember(const T& t) {
-    if (std::is_member_function_pointer<T>::value)
-        std::cout << "This is a member function pointer" << std::endl;
-    else if (std::is_member_object_pointer<T>::value)
-        std::cout << "This is a pointer to a non-static member object" << std::endl;
-    else
-        std::cout << "This is neither a member function pointer nor a pointer to a non-static member object" << std::endl;
+void isPointer(const T& t, std::false_type) {
+    // this function is called for a pointer (switch)
+    std::cout << "This is not a pointer. The value is: " << t << std::endl;
 }
 
-
-/// Part (C) 
 template <typename T>
-void IsPointer(const T& t)
-{ // First example of type_traits;check if t is a pointer 
-// Return type is std::true_type or std::false_type
-    if (std::is_pointer<T>::value)
-    {
-        std::cout << "This is a pointer type argument\n";
-    }
-    else
-    {
-        std::cout << "_not_ a pointer type argument\n";
-    }
+void checkPointer(const T& val) {
+    isPointer(val, std::is_pointer<T>());
 }
 
 int main()
 {
-    /// Part (A): Test pointer, null pointer, lvalue, rvalue
-    int a = 123;
-    int* ptr = &a;
-    int& lref = a;
-    int&& rref = 5;
+    // Use of a switch
+    // Test a shared pointer
+    std::shared_ptr<int> ival(new int(23));
+    checkPointer(ival); // shared pointer is not pointer type, therefore print the address
+    checkPointer(ival.get());// the raw pointer
+    checkPointer(*ival);
 
-    printTypeTrait(ptr); // pointer type
-    printTypeTrait(nullptr); // null pointer
-    printTypeTrait<int&>(lref); // lvalue
-    printTypeTrait<int&&>(rref); // rvalue
-    printTypeTrait(a); // none of the above
-
-    /// Part (B) check whether a pointer points to static or non-static member
-    struct myClass {
-        int memberVar;
-        void print() {
-            std::cout << "call print function" << std::endl;
-        }
-    };
-    checkMember(&myClass::print); // pointer to a member function object
-    checkMember(&myClass::memberVar); // pointer to a non-static member object
-
-    /// Part (C) Is a shared pointer a pointer type? Is it a pointer type when converted to raw pointer?
-    std::shared_ptr<int> shareptr(new int(42));
-    IsPointer(shareptr);
-    IsPointer(shareptr.get());
-    // It shows that a shared pointer is not a pointer type, yet the raw pointer which it contains is a pointer type.
-
+    // Test a raw pointer
+    int* ival2 = new int; *ival2 = 10;
+    checkPointer(ival2);
+    checkPointer(*ival2);
+    delete ival2;
+    
 }
 
 
