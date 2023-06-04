@@ -33,14 +33,14 @@ public:
     /// Part (D), set copy constructor and assignment operator as "deleted"
     // copy constructor
     //Point(Point& p) = delete;
-    
+
     // assignment operator
     //Point& operator = (const Point& p) = delete;
 
     /// Part (E), add explicit move constructor and move assignment operator
     // explicit move constructor
     //Point(Point&& p) {};
-    
+
     // move assignment operator
     //Point& operator = (const Point&& p) {};
 
