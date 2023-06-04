@@ -40,7 +40,7 @@ boost::system::error_condition ReadFile(const std::string& file_name) {
     std::cout << file.rdbuf() << std::endl; // print file content
     file.close(); // close file
 
-    // return no error
+    // return default error (means no error)
     return boost::system::error_condition();
 }
 
@@ -82,11 +82,9 @@ int main() {
     std::cout << "Error condition 2: " << ReadFile(file2).message() << std::endl;
 
     /// Part (D) Port the Boost code to C++11 and test your program again.
-    std::string file1("1.txt");
     std::cout << std::endl << "Opening file: " << file1 << std::endl;
     std::cout << "Error condition 1: " << stlReadFile(file1).message() << std::endl;
     // non-existing file
-    std::string file2("random_file.txt");
     std::cout << std::endl << "Opening file: " << file2 << std::endl;
     std::cout << "Error condition 2: " << stlReadFile(file2).message() << std::endl;
 }
