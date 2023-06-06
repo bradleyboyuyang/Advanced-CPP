@@ -10,6 +10,7 @@
 */
 
 #include <iostream>
+#include <memory>
 
 int main() {
     /// a) Type the given code and run it. Why does it give a run-time error?
