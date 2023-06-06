@@ -50,7 +50,6 @@ int main() {
     // The compiler reports that the unique pointer cannot access the protected destructor for Base
     // Shared pointer works because it allows multiple pointers to manage the same object
     // Unique pointers fail because it forbids copy constructor and copy assignment, but std::list requires elements can be copied
-    // The unique pointer default constructor has a delete field that ensures exclusive ownership
     
     /// b) Create a factory function to create instances of Derived and then add them to the list.
     sharedList.push_back(createDerived());
