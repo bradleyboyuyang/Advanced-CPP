@@ -32,58 +32,86 @@ int main() {
     // Therefore we consider the nested array as the "optimal" choice regarding the balance between efficiency and ease of use.
 
     /// b) Constructors need to be created. Use the same defaults as with std::bitset<M>.
-    // The implemented class is defined in "BitMatrix.cpp". We test the constructor below:
+    // The implemented class is defined in "BitMatrix.hpp". We test the constructor below:
     
-	BitMatrix<5, 3> bitmatrix;
-	std::cout << "printing constructor: ";
-	bitmatrix.print(); // printing results 
+	// default constructor
+	BitMatrix<3, 4> matrix1; // Default constructor
+	std::cout << "Default constructor:\n";
+	matrix1.print();
+	// constructor with all rows equal to the same value
+	BitMatrix<2, 9> matrix2(123); 
+	std::cout << "Normal constructor:\n";
+	matrix2.print();
 
-	// testing constructor with value input 
-	BitMatrix<5, 6> bitmatrix1(9);
-	std::cout << "printing constructor with value input: ";
-	bitmatrix1.print();
+	// copy constructor 
+	auto matrix3(matrix2);
+	std::cout << "Copy constructor:\n";
+	matrix3.print();
 
-	// testing copy constructor 
-	auto bitmatrix2(bitmatrix1);
-	std::cout << "printing copy constructor: ";
-	bitmatrix2.print();
-
-	// testing move constructor 
-	auto bitmatrix3(std::move(bitmatrix2)); //Move constructor
-	bitmatrix3.print();
+	// move constructor
+	auto matrix4(std::move(matrix3));
+	std::cout << "Move constructor:\n";
+	matrix4.print();
 
     /// c) Implement the following for all rows in the matrix and for a given row in the matrix:
     /// Set/reset all bits; Flip the bits; Test if none, all or any bits are set; Access the elements; Count the number of set bits.
-    // The implemented class is defined in "BitMatrix.cpp". We test the row operations below:
+    // The implemented class is defined in "BitMatrix.hpp". We test the row operations below:
+
+	BitMatrix<3, 4> matrix;
+	matrix.set(); // Set all bits in all rows
+	matrix.reset(); // Reset all bits in all rows
+	matrix.flip(); // Flip all bits in all rows
+	std::cout << "The matrix:\n";
+	matrix.print();
 
 	// test if none, all or any bits are set 
-	std::cout << "Checking if bits are set " << bitmatrix3.all() << std::endl;
-	std::cout << "Checking if no bits are set " << bitmatrix3.none() << std::endl;
-	std::cout << "Checking if any bits are set " << bitmatrix3.any() << std::endl;
+	std::cout << std::boolalpha;
+	std::cout << "Checking if bits are set " << matrix2.all() << std::endl;
+	std::cout << "Checking if no bits are set " << matrix2.none() << std::endl;
+	std::cout << "Checking if any bits are set " << matrix2.any() << std::endl;
 
 	// access the elements 
-	std::size_t x = 4;
-	std::size_t y = 5;
-	bitmatrix3.print();
-	std::cout << "Checking access to (4,5) " << bitmatrix3(x, y) << std::endl;
-	std::cout << "Counting number of elements in row 2 " << bitmatrix3.count(2) << std::endl;
-	std::cout << "Counting total elements " << bitmatrix3.count() << std::endl;
+	BitMatrix<3, 4> mat(9);
+	std::cout << "The matrix:\n";
+	mat.print();
+	
+	std::size_t x = 2;
+	std::size_t y = 2;
+	std::cout << "Matrix[2]: " << mat[2] << std::endl; // access a row
+	std::cout << "Matrix[2][1]: " << mat[2][1] << std::endl; // access an element
+
+	// count the number of set bits
+	std::cout << "Count number of set bits: " << mat.count() << std::endl;
 
     /// d) Create member functions for OR, XOR and AND Boolean operations on bit matrices.
-    // The implemented class is defined in "BitMatrix.cpp". We test the bitwise operations below:
+    // The implemented class is defined in "BitMatrix.hpp". We test the bitwise operations below:
 
-	std::cout << "Testing bitwise operations" << std::endl;
-	std::cout << "Testing bitwise operation XOR" << std::endl;
-	BitMatrix<5, 6> bitmatrix4 = bitmatrix3 ^ bitmatrix2;
-	bitmatrix4.print();
+	BitMatrix<3, 4> mat1(9);
+	BitMatrix<3, 4> mat2(8);
+	std::cout << "Matrix1:\n";
+	mat1.print();
+	std::cout << "Matrix2:\n";
+	mat2.print();
 
-	// bitmatrix 4,5,6 all have to be the same size 
-	std::cout << "Testing bitwise operation OR" << std::endl;
-	BitMatrix<5, 6> bitmatrix5 = (bitmatrix4 | bitmatrix2);
-	bitmatrix5.print();
-	std::cout << "Testing bitwise operation AND" << std::endl;
-	BitMatrix<5, 6> bitmatrix6 = bitmatrix4 & bitmatrix2;
-	bitmatrix6.print();
+	// Perform OR operation on the matrices
+	std::cout << "Matrix1 OR Matrix2\n";
+	BitMatrix<3, 4> resultOR = mat1 | mat2;
+	resultOR.print();
+	BitMatrix<3, 4> resultOR2 = matrix1;
+	resultOR2 |= mat1; 
 
+	// Perform AND operation on the matrices
+	std::cout << "Matrix1 AND Matrix2\n";
+	BitMatrix<3, 4> resultAND = mat1 & mat2;
+	resultAND.print();
+	BitMatrix<3, 4> resultAND2 = matrix1;
+	resultAND2 |= mat1;
+
+	// Perform XOR operation on the matrices
+	std::cout << "Matrix1 XOR Matrix2\n";
+	BitMatrix<3, 4> resultXOR = mat1 ^ mat2;
+	resultXOR.print();
+	BitMatrix<3, 4> resultXOR2 = matrix1;
+	resultXOR2 |= mat1;
 
 }
