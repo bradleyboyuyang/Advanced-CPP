@@ -105,7 +105,8 @@ int main() {
     std::cout << "Number of times thread 3 has failed to acquire the lock: " << thread3_count << std::endl;
 
     // By comparing time with the previous exercise, the program takes longer to run when the threads are synchronized using mutex.
-    // Also, the console output becomes tidier and cleaner because of the sequential execution of threads ensured by mutex
+    // Also, the console output becomes tidier and cleaner because of the sequential execution of threads ensured by mutex.
+    // Also, every execution the number of times each thread has failed to acquire the lock is different.
 
     /// c) Simulate deadlock (for example, a thread that never unlocks a mutex) by commenting out unlock()
     /// in your code. What happens ?
