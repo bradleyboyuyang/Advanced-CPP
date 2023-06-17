@@ -1,6 +1,6 @@
 ﻿/*
     Level 3.5: Complexity and STL Containers
-    Problem 1: Compile-Time Fractional Arithmetic 101
+    Problem 7: Compile-Time Fractional Arithmetic 101
 
     Name: Boyu Yang
 
