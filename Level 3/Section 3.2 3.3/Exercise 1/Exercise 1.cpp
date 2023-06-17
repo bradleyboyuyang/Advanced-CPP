@@ -4,9 +4,6 @@
 
     Name: Boyu Yang
 
-    File: Exercise 4.cpp
-    Description: Main file for execution
-
     Problem objective:
     In general, shared pointers are not thread-safe. However, reading the count while another thread modifies
     a shared pointer does not introduce a race condition but the value may not be up-to-date.
