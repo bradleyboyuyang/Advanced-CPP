@@ -1,6 +1,7 @@
 /*
-    File: SyncQueue.hpp
-    Description: Implement a generic synchronising FIFO queue having an embedded STL queue
+    File: SyncPriorityQueue.hpp
+    Description: Implement a generic synchronising priority queue having an embedded STL priority queue,
+    both the latter's container type and comparator are generic
 */
 
 #pragma once
