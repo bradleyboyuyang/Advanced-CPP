@@ -85,6 +85,7 @@ int main() {
     /// c) Modify the code in part b) to use a lambda function instead of std::greater<long long>. Inspect the output
     std::cout << "========Part(C)========\n";
     auto comparator = [](long long x, long long y) {return x > y; };
+    // note: in C++20 we can simply write pQueue3 without "(comparator)"
     std::priority_queue<long long, std::deque<long long>, decltype(comparator)> pQueue3(comparator);
     // push values 66, 22, 44
     pQueue3.push(66);
