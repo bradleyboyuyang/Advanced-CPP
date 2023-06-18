@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <thread>
 #include <functional>
+#include <atomic>
 
 // given class
 using FunctionType = std::function<double(double)>;
@@ -17,8 +18,9 @@ class Command
 private:
     long ID; // priority of command
     FunctionType algo;
+    bool flag; // an added bool to indicate whether it is a special command
 public:
-    Command(const FunctionType& algorithm, long priority) : algo(algorithm), ID(priority) {}
+    Command(const FunctionType& algorithm, long priority, bool flag) : algo(algorithm), ID(priority), flag(flag) {}
     void Execute(double x)
     {
         // Introduce delay to simulate a heavy algorithm
@@ -28,5 +30,8 @@ public:
     int priority() const
     {
         return ID;
+    }
+    bool isSpecial() const {
+        return flag;
     }
 };
