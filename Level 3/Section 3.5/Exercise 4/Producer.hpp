@@ -9,17 +9,18 @@
 #include <string>
 #include <thread>
 
-#include "SyncQueue.hpp"
+#include "SyncPriorityQueue.hpp"
 
 // Class that produces objects and puts them in a queue
+template <class M, typename F>
 class Producer
 {
 private:
     int m_id; // The id of the producer
-    SynchronisedQueue<std::string>* m_queue; // The queue pointer to use
+    SynchronisedQueue<std::string, M, F>* m_queue; // The queue pointer to use
 public:
     // Constructor with id and the queue to use
-    Producer(int id, SynchronisedQueue<std::string>* queue)
+    Producer(int id, SynchronisedQueue<std::string, M, F>* queue)
     {
         m_id = id; m_queue = queue;
     }

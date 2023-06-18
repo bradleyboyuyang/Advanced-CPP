@@ -37,15 +37,15 @@ void join(std::thread& t) {
 
 int main() {
     /// d) Test the synchronised queue by creating producer and consumer threads.
-    // The shared queue
-    SynchronisedQueue<std::string> queue;
+    // We use std::string as the shared queue, a string vector as the container type, and use std::greater as the comparator for priority queue
+    SynchronisedQueue <std::string, std::vector<std::string>, std::greater<std::string>> queue;
 
     // Create producers
-    Producer p(1, &queue);
+    Producer<std::vector<std::string>, std::greater<std::string>> p(1, &queue);
     std::thread p1(p);
 
     // Create consumer
-    Consumer c(1, &queue);
+    Consumer<std::vector<std::string>, std::greater<std::string>> c(1, &queue);
     std::thread c1(c);
 
     // interupt the threads

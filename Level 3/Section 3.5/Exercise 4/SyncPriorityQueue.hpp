@@ -11,15 +11,16 @@
 #include <mutex>
 #include <thread>
 
-/// a) Implement this template class, in particular its template parametersand functions for queueingand dequeing.
+/// a) Implement this template class, in particular its template parametersand functions for queueing and dequeing.
 /// b) Add locking mechanisms to functions for synchronisation effects.
 /// c) Add notification mechanisms to allow thread notification(use condition variables for notification).
 
 // Queue class that has thread synchronisation
-template <typename T>
+// As required, the data type, container type and comparator are generic
+template <typename T, class M, typename F>
 class SynchronisedQueue {
 private:
-    std::queue<T> m_queue; // Use stl queue to store data
+    std::priority_queue<T, M, F> m_queue; // Use stl queue to store data
     std::mutex m_mutex; // The mutex to synchronise on
     std::condition_variable m_cond; // The condition to wait for
 public:
@@ -43,7 +44,7 @@ public:
         // Lock is automatically released in the wait and active again after the wait
         while (m_queue.size() == 0) m_cond.wait(lock);
         // Retrieve the data from the queue
-        T result = m_queue.front(); m_queue.pop();
+        T result = m_queue.top(); m_queue.pop();
         return result;
     } // Lock is released here
 
