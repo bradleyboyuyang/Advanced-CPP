@@ -59,14 +59,7 @@ public:
         }
         return res;
     }
-    // premultiplication by a scalar
-    Vector operator*(T& scalar) {
-        Vector res;
-        for (int i = 0; i < N; i++) {
-            res[i] = data[i] * scalar;
-        }
-        return res;
-    }
+
     // friend function for printing vector
     friend std::ostream& operator<<(std::ostream& out, const Vector& vec) {
         out << "[";

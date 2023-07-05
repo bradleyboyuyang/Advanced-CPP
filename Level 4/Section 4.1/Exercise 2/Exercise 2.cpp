@@ -39,7 +39,8 @@ int main() {
     std::cout << vec1 - vec2 << std::endl;
     std::cout << -vec1 << std::endl;
     double pi{ 3.14 };
-    std::cout << vec1 * pi << std::endl;
+    // test premultiplication
+    std::cout << pi * vec1 << std::endl;
 
     /// d) Test code
     Vector<float, 3> v1(2.3);  // Vector [1, 1, 1]
