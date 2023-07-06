@@ -32,7 +32,7 @@ public:
     Proposition operator|(const Proposition&);	// or
     Proposition operator^(const Proposition&);	// xor
     Proposition operator!();				    // negation
-    bool operator=(const Proposition&);            // assign
+    void operator=(bool);          // assign
     // Friend functions for conditional (->) and biconditional (<->)
     friend Proposition operator%(const Proposition&, const Proposition&);
     friend Proposition operator%=(const Proposition&, const Proposition&);

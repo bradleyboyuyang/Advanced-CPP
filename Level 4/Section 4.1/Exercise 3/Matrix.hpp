@@ -26,9 +26,12 @@ public:
                 element = 0;
     }
     // value constructor
-    Matrix(const T& val) {
-        for (auto& row : data)
-            row.fill(val);
+    Matrix(T value) {
+        for (std::array<T, NC>& row : data) {
+            for (T& elem : row) {
+                elem = value;
+            }
+        }
     }
     // copy constructor
     Matrix(Matrix& other) : data(other.data) {};

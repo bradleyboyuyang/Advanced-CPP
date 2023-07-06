@@ -23,7 +23,7 @@ Proposition Proposition::operator&(const Proposition& p) { return Proposition(p.
 Proposition Proposition::operator|(const Proposition& p) { return Proposition(p.data | this->data); }; // or
 Proposition Proposition::operator^(const Proposition& p) { return Proposition(p.data ^ this->data); };	 // xor
 Proposition Proposition::operator!() { return Proposition(~this->data); };								 // negation
-bool Proposition::operator=(const Proposition& p) { return p.data[0]; }; // assign a proposition to a bool
+void Proposition::operator=(bool val) { this->data.set(0, val); }; // assign a proposition to a bool
 
 // friend function: Conditional operator (->)
 Proposition operator%(const Proposition& left, const Proposition& right)
