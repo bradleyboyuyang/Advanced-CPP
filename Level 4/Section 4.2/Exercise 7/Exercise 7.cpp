@@ -19,11 +19,11 @@
 #include <algorithm>
 #include <string>
 
+// function to compute the power set
 std::vector<std::vector<int>> powerSet(const std::vector<int>& S) {
     std::vector<std::vector<int>> powerSet;
     int setSize = S.size();
-    int numSubsets = pow(2, setSize);
-
+    int numSubsets = pow(2, setSize); // number of subsets
     for (int i = 0; i < numSubsets; i++) {
         std::vector<int> subset;
         for (int j = 0; j < setSize; j++) {
