@@ -1,5 +1,5 @@
 ﻿/*
-    Level 3.1: STL Algorithms I
+    Level 4.1: STL Algorithms I
     Problem 4: A Bitmap Class
 
     Name: Boyu Yang

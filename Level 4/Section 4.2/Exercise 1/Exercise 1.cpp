@@ -1,5 +1,5 @@
 ﻿/*
-    Level 3.2: STL Algorithms II
+    Level 4.2: STL Algorithms II
     Problem 1: Searching in Numeric Array
 
     Name: Boyu Yang

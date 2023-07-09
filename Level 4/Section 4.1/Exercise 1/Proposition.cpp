@@ -1,5 +1,5 @@
 /*
-    Level 3.1: STL Algorithms I
+    Level 4.1: STL Algorithms I
     Problem 1: Adapter Classes for Bitsets
 
     Name: Boyu Yang
