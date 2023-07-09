@@ -43,5 +43,8 @@ int main() {
     stack.drop(); // discard the top value on the stack
     stack.print("stack after drop()"); // 10, 15, 7, 6, 7, 10
 
+    /// which algorithms do they belong to?
+    // min, max, drop, over are modifying algorithms; rot and swap are mutating algorithms
+
     return 0;
 }
