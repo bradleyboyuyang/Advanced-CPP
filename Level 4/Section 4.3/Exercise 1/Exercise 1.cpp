@@ -1,6 +1,6 @@
 ﻿/*
     Level 4.3: Random Number Generators and Distributions
-    Problem 1: Classifying Algorithms
+    Problem 1: First 101 Example
 
     Name: Boyu Yang
 
